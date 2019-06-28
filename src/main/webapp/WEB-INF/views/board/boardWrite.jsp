@@ -9,7 +9,7 @@
 <body>
 	<h1>${board}Write Page</h1>
 	<form action="${board}Write" method="post">
-		<input type="text" name="write" placeholder="write">
+		<input type="text" name="writer" placeholder="writer">
 		<input type="text" name="title" placeholder="title">
 		<textarea rows="" cols="" placeholder="contents"></textarea>
 		<button>Write</button>

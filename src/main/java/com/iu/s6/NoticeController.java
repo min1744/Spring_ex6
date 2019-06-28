@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.iu.board.BoardDTO;
 import com.iu.board.notice.NoticeService;
+import com.iu.util.PageMaker;
 
 @Controller
 @RequestMapping("/notice/")
@@ -35,10 +36,26 @@ public class NoticeController {
 		
 		return "redirect:./noticeList";
 	}
+	
+	@RequestMapping(value = "noticeUpdate", method = RequestMethod.GET)
+	public String setUpdate(Model model, int num) throws Exception{
+		BoardDTO boardDTO = noticeService.getSelect(num);
+		model.addAttribute("boardDTO", boardDTO);
+		model.addAttribute("board", "notice");
+		
+		return "board/boardUpdate";
+	}
+	
+	@RequestMapping(value = "noticeUpdate", method = RequestMethod.POST)
+	public String setUpdate(BoardDTO boardDTO, Model model) throws Exception{
+		int result = noticeService.setUpdate(boardDTO);
+		
+		return "redirect:./noticeSelect";
+	}
 
 	@RequestMapping(value = "noticeList", method = RequestMethod.GET)
-	public String getList(Model model) throws Exception {
-		List<BoardDTO> ar = noticeService.getList();
+	public String getList(Model model, PageMaker pageMaker) throws Exception {
+		List<BoardDTO> ar = noticeService.getList(pageMaker);
 		model.addAttribute("list", ar);
 		model.addAttribute("board", "notice");
 		
@@ -52,5 +69,12 @@ public class NoticeController {
 		mv.addObject("board", "notice");
 		mv.setViewName("board/boardSelect");
 		return mv;
+	}
+	
+	@RequestMapping("noticeDelete")
+	public String setDelete(@RequestParam(defaultValue = "0", required = false) int num) throws Exception{
+		int result = noticeService.setDelete(num);
+		
+		return "redirect:./noticeList";
 	}
 }

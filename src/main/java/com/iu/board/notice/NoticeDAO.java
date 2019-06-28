@@ -2,85 +2,60 @@ package com.iu.board.notice;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Required;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Repository;
 
 import com.iu.board.BoardDAO;
 import com.iu.board.BoardDTO;
-import com.iu.util.DBConnector;
+import com.iu.util.PageMaker;
+
 
 @Repository
 public class NoticeDAO implements BoardDAO {
+	
 	@Inject
-	private DBConnector dbConnector;
+	private SqlSession sqlSession;
+	private String mapper="NoticeMapper.";
 
 	@Override
 	public int setWrite(BoardDTO boardDTO) throws Exception {
-		Connection con = dbConnector.getConnect();
-		String sql = "INSERT INTO NOTICE VALUES(NOTICE_SEQ.NEXTVAL, ?, ?, ?, SYSDATE, 0)";
-		PreparedStatement st = con.prepareStatement(sql);
-		st.setString(1, boardDTO.getTitle());
-		st.setString(2, boardDTO.getWriter());
-		st.setString(3, boardDTO.getContents());
-		int result = st.executeUpdate();
-		st.close();
-		con.close();
-		
+		int result = sqlSession.insert(mapper+"noticeWrite", boardDTO);
 		return result;
 	}
 
 	@Override
-	public List<BoardDTO> getList() throws Exception {
-		Connection con = dbConnector.getConnect();
-		String sql = "SELECT * FROM (SELECT ROWNUM R, N.* FROM (SELECT * FROM NOTICE ORDER BY NUM DESC) N) WHERE R BETWEEN ? AND ?";
-		PreparedStatement st = con.prepareStatement(sql);
-		st.setInt(1, 1);
-		st.setInt(2, 10);
-		ResultSet rs = st.executeQuery();
-		ArrayList<BoardDTO> ar = new ArrayList<BoardDTO>();
-		while(rs.next()) {
-			BoardDTO boardDTO = new BoardDTO();
-			boardDTO.setContents(rs.getString("contents"));
-			boardDTO.setHit(rs.getInt("hit"));
-			boardDTO.setNum(rs.getInt("num"));
-			boardDTO.setReg_date(rs.getDate("reg_date"));
-			boardDTO.setTitle(rs.getString("title"));
-			boardDTO.setWriter(rs.getString("writer"));
-			ar.add(boardDTO);
-		}
-		rs.close();
-		st.close();
-		con.close();
+	public int setDelete(int num) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.delete(mapper+"noticeDelete", num);
+	}
 
-		return ar;
+	@Override
+	public int setUpdate(BoardDTO boardDTO) throws Exception {
+		return sqlSession.update(mapper+"noticeUpdate", boardDTO);
 	}
 
 	@Override
 	public BoardDTO getSelect(int num) throws Exception {
-		Connection con = dbConnector.getConnect();
-		String sql = "SELECT * FROM NOTICE WHERE NUM = ?";
-		PreparedStatement st = con.prepareStatement(sql);
-		st.setInt(1, num);
-		ResultSet rs = st.executeQuery();
-		BoardDTO boardDTO = null;
-		if(rs.next()) {
-			boardDTO = new BoardDTO();
-			boardDTO.setContents(rs.getString("contents"));
-			boardDTO.setHit(rs.getInt("hit"));
-			boardDTO.setNum(rs.getInt("num"));
-			boardDTO.setReg_date(rs.getDate("reg_date"));
-			boardDTO.setTitle(rs.getString("title"));
-			boardDTO.setWriter(rs.getString("writer"));
-		}
-		rs.close();
-		st.close();
-		con.close();
+		return sqlSession.selectOne(mapper+"noticeSelect", num);
+	}
 
-		return boardDTO;
+	@Override
+	public List<BoardDTO> getList(PageMaker pageMaker) throws Exception {
+		
+		return sqlSession.selectList(mapper+"noticeList", pageMaker);
+	}
+
+	@Override
+	public int getTotalCount(PageMaker pageMaker) throws Exception {
+		
+		return sqlSession.selectOne(mapper+"totalCount", pageMaker);
 	}
 }

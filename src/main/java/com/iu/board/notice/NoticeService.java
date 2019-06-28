@@ -8,31 +8,45 @@ import org.springframework.stereotype.Service;
 
 import com.iu.board.BoardDTO;
 import com.iu.board.BoardService;
+import com.iu.util.PageMaker;
 
 @Service
 public class NoticeService implements BoardService {
-
+	
 	@Inject
 	private NoticeDAO noticeDAO;
-	
+
 	@Override
 	public int setWrite(BoardDTO boardDTO) throws Exception {
-		int result = noticeDAO.setWrite(boardDTO);
 		
-		return result;
+		return noticeDAO.setWrite(boardDTO);
 	}
 
 	@Override
-	public List<BoardDTO> getList() throws Exception {
-		List<BoardDTO> ar = noticeDAO.getList();
-		
-		return ar;
+	public int setDelete(int num) throws Exception {
+		// TODO Auto-generated method stub
+		return noticeDAO.setDelete(num);
+	}
+
+	@Override
+	public int setUpdate(BoardDTO boardDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return noticeDAO.setUpdate(boardDTO);
 	}
 
 	@Override
 	public BoardDTO getSelect(int num) throws Exception {
-		BoardDTO boardDTO = noticeDAO.getSelect(num);
+		// TODO Auto-generated method stub
+		return noticeDAO.getSelect(num);
+	}
 
-		return boardDTO;
+	@Override
+	public List<BoardDTO> getList(PageMaker pageMaker) throws Exception {
+		pageMaker.makeRow();
+		int totalCount = noticeDAO.getTotalCount(pageMaker);
+		//페이징 처리 계산
+		pageMaker.makePage(totalCount);
+		
+		return noticeDAO.getList(pageMaker);
 	}
 }
