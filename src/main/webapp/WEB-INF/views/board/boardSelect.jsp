@@ -8,11 +8,11 @@
 </head>
 <body>
 	<h1>${board} Select Page</h1>
-	<h1>Title : ${boardDTO.title}</h1>
-	<h1>Writer : ${boardDTO.writer}</h1>
-	<h1>Contents : ${boardDTO.contents}</h1>
-	<a href="${board}Update?num=${boardDTO.num}">Update</a>
-	<a href="${board}Delete?num=${boardDTO.num}">Delete</a>
-	<a href="${board}List">List</a>
+	<h1>Title : ${dto.title}</h1>
+	<h1>Writer : ${dto.writer}</h1>
+	<h1>Contents : ${dto.contents}</h1>
+	<a href="./${board}Update?num=${dto.num}">Update</a>
+	<a href="./${board}Delete?num=${dto.num}">Delete</a>
+	<a href="./${board}List?curPage=${pager.curPage}">List</a>
 </body>
 </html>
