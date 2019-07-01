@@ -5,6 +5,6 @@
 
 <mapper namespace="FileMapper">
 	<insert id="fileWrite" parameterType="com.iu.file.FileDTO">
-		INSERT INTO FILES VALUES(, NOTICE_SEQ.CURRVAL)
+		
 	</insert>
 </mapper>
