@@ -1,5 +1,7 @@
 package com.iu.file;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -10,24 +12,25 @@ public class FileDAO {
 	
 	@Inject
 	private SqlSession sqlSession;
+	private static final String NAMESPACE = "FileMapper.";
 	
-	public void setWrite() throws Exception{
-		
+	public int setWrite(FileDTO fileDTO) throws Exception{
+		return sqlSession.insert(NAMESPACE+"setWrite", fileDTO);
 	}
 	
-	public void setUpdate() throws Exception{
-		
+	public int setUpdate(FileDTO fileDTO) throws Exception{
+		return sqlSession.update(NAMESPACE+"setUpdate", fileDTO);
 	}
 	
-	public void setDelete() throws Exception{
-		
+	public int setDelete(int fnum) throws Exception{
+		return sqlSession.delete(NAMESPACE+"setDelete", fnum);
 	}
 	
-	public void getSelect() throws Exception{
-		
+	public FileDTO getSelect(int fnum) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getSelect", fnum);
 	}
 	
-	public void getList() throws Exception{
-		
+	public List<FileDTO> getList(int num) throws Exception{
+		return sqlSession.selectList(NAMESPACE+"getList", num);
 	}
 }

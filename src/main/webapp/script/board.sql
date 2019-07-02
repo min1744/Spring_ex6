@@ -23,3 +23,31 @@ increment by 1
 nomaxvalue
 nocycle
 nocache;
+
+create table member(
+id varchar2(400),
+pw varchar2(400) not null,
+name varchar2(400) not null,
+email varchar2(400) not null,
+grade number(8) not null,
+constraint member_id_pk primary key(id)
+);
+
+create table memberfile(
+num number(8),
+id varchar2(400),
+fname varchar2(400) not null,
+oname varchar2(400) not null,
+constraint memberfile_num_pk primary key(num),
+constraint memberfile_id_fk foreign key (id) references member(id)
+);
+
+create sequence memberfile_seq
+start with 1
+increment by 1
+nomaxvalue
+nocycle
+nocache;
+
+select * from MEMBER;
+select * from MEMBERFILE;

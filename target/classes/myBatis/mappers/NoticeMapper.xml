@@ -6,37 +6,66 @@
 <mapper namespace="NoticeMapper">
 	<select id="totalCount" resultType="java.lang.Integer" parameterType="com.iu.util.PageMaker">
 		<!-- kind : 1(title), 2(writer), 3(contents) -->
-		select count(*) from notice where 
-		<!-- <if test="kind == '1'">where title like '%'||#{search}||'%'</if>
-		<if test="kind == '2'">where writer like '%'||#{search}||'%'</if>
-		<if test="kind == '3'">where contents like '%'||#{search}||'%'</if> -->
+		select count(num) from notice where 
 		<choose>
-			<when test="kind == 1">title </when>
-			<when test="kind == 2">writer </when>
-			<otherwise>contents </otherwise>
+			<when test="kind == 1">
+				title
+			</when>
+			<when test="kind == 2">
+				writer
+			</when>
+			<otherwise>
+				contents
+			</otherwise>
 		</choose>
-		like '%'||#{search}||'%'
+		like '%'|| #{search} || '%'
+		
+		<!-- <if test="title == '1'">
+			where title like '%'||#{search}||'%'
+		</if>
+		<if test="title =='2' ">
+			where writer like '%'||#{search}||'%'
+		</if>
+		<if test="title =='3'">
+			where contents like '%'||#{search}||'%'
+		</if> -->
+		
+		
 	</select>
 	
 	<select id="noticeList" resultType="com.iu.board.notice.NoticeDTO" parameterType="com.iu.util.PageMaker">
 		select * from
 		(select rownum R, N.* from
-		(select * from notice where  
+		(select * from notice
+		where
+		
 		<choose>
-			<when test="kind == 1">title </when>
-			<when test="kind == 2">writer </when>
-			<otherwise>contents </otherwise>
+			<when test="kind == 1">
+				title
+			</when>
+			<when test="kind == 2">
+				writer
+			</when>
+			<otherwise>
+				contents
+			</otherwise>
 		</choose>
-		like '%'||#{search}||'%' order by num desc) N)
+		like '%'|| #{search} || '%'
+		
+		order by num desc) N)
 		where R between #{startRow} and #{lastRow}
 	</select>
 
 	<select id="noticeSelect" resultType="com.iu.board.notice.NoticeDTO" parameterType="java.lang.Integer">
 		select num, title, writer, contents, reg_date, hit from notice where num=#{num}
 	</select>
+	
+	<select id="getNum" resultType="java.lang.Integer">
+		select notice_seq.nextval from dual
+	</select>
 
-	<insert id="noticeWrite" parameterType="com.iu.board.notice.NoticeDTO">
-		insert into notice values(notice_seq.nextval,#{title},#{writer},#{contents},sysdate,0)
+	<insert id="noticeWrite" parameterType="com.iu.board.BoardDTO">
+		insert into notice values(#{num},#{title},#{writer},#{contents},sysdate,0) 
 	</insert>
 	
 	<update id="noticeUpdate" parameterType="com.iu.board.notice.NoticeDTO">

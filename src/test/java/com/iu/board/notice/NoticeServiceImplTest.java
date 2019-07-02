@@ -17,12 +17,13 @@ public class NoticeServiceImplTest extends AbstractTest {
 	@Inject
 	private NoticeService noticeService;
 	
-	@Test
+	//@Test
 	public void test() throws Exception {
-		PageMaker pageMaker= new PageMaker();
-		pageMaker.setCurPage(1);
-		
-		 List<BoardDTO>  ar = noticeService.getList(pageMaker);
-		 assertEquals(10, ar.size());
+		BoardDTO boardDTO = new BoardDTO();
+		boardDTO.setContents("contents");
+		boardDTO.setTitle("title");
+		boardDTO.setWriter("writer");
+		//int result = noticeService.setWrite(boardDTO, multipartFiles, session);
+		//assertNotEquals(0, result);
 	}
 }

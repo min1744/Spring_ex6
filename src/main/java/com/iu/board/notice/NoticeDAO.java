@@ -25,6 +25,11 @@ public class NoticeDAO implements BoardDAO {
 	private SqlSession sqlSession;
 	private static final String NAMESPACE="NoticeMapper.";
 
+	public int getNum() throws Exception{
+		int num = sqlSession.selectOne(NAMESPACE+"getNum");
+		return num;
+	}
+	
 	@Override
 	public int setWrite(BoardDTO boardDTO) throws Exception {
 		int result = sqlSession.insert(NAMESPACE+"noticeWrite", boardDTO);

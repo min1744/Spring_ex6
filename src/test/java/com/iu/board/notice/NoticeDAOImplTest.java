@@ -18,6 +18,12 @@ public class NoticeDAOImplTest extends AbstractTest {
 	private NoticeDAO noticeDAO;
 	
 	@Test
+	public void getNum() throws Exception{
+		int result = noticeDAO.getNum();
+		assertNotEquals(0, result);
+	}
+	
+	//@Test
 	public void getCount() throws Exception{
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setKind("1");

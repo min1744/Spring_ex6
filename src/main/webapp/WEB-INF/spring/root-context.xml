@@ -4,6 +4,12 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- MemberDAO -->
+	<bean class="com.iu.member.MemberDAO" id="memberDAO" />
+	<bean class="com.iu.member.MemberService" id="memberService" />	
+	
+	<!-- 파일 저장 -->
+	<bean class="com.iu.util.FileSaver" />
 	
 	<!-- 분할된 request를 합치는 객체 -->
 	<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">

@@ -19,6 +19,7 @@ public class FileSaver {
 		//UUID 클래스를 사용(Universal Unique ID)
 		String fileSystemName = UUID.randomUUID().toString();
 		String originalName = multipartFile.getOriginalFilename();
+		//fileSystemName = fileSystemName + "-" + originalName;
 		originalName = originalName.substring(originalName.lastIndexOf("."));
 		fileSystemName = fileSystemName+originalName;
 		//저장

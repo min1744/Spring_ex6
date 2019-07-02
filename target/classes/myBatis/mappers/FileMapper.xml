@@ -4,7 +4,23 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="FileMapper">
-	<insert id="fileWrite" parameterType="com.iu.file.FileDTO">
-		
+	<insert id="setWrite" parameterType="com.iu.file.FileDTO">
+		insert into files values(notice_seq.nextval, #{num}, #{fname},#{oname})
 	</insert>
+	
+	<update id="setUpdate" parameterType="com.iu.file.FileDTO">
+		update files set fname=#{fname}, oname=#{oname} where fnum=#{fnum}
+	</update>
+	
+	<delete id="setDelete" parameterType="java.lang.Integer">
+		delete files where fnum=#{fnum}
+	</delete>
+	
+	<select id="getSelect" resultType="com.iu.file.FileDTO" parameterType="java.lang.Integer">
+		select * from files where fnum=#{fnum}
+	</select>
+	
+	<select id="getList" resultType="com.iu.file.FileDTO" parameterType="java.lang.Integer">
+		select * from files where num=#{num}
+	</select>
 </mapper>
