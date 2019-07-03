@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +12,6 @@
 	<h3>Name : ${member.name}</h3>
 	<h3>Email : ${member.email}</h3>
 	<h3>Grade : ${member.grade}</h3>
-	<img alt="${memberfile.oname}" src="../resources/member_upload/${memberfile.fname}">
+	<img alt="${member.memberfileVO.oname}" src="../resources/member_upload/${member.memberfileVO.fname}">
 </body>
 </html>

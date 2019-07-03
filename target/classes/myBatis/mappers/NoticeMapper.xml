@@ -33,7 +33,7 @@
 		
 	</select>
 	
-	<select id="noticeList" resultType="com.iu.board.notice.NoticeDTO" parameterType="com.iu.util.PageMaker">
+	<select id="noticeList" resultType="NoticeDTO" parameterType="com.iu.util.PageMaker">
 		select * from
 		(select rownum R, N.* from
 		(select * from notice
@@ -56,13 +56,29 @@
 		where R between #{startRow} and #{lastRow}
 	</select>
 	
-	<resultMap type="com.iu.board.notice.NoticeDTO" id="test">
+	<resultMap type="NoticeDTO" id="test">
 		<id property="num" column="n"/>
 		<result property="title" column="t"/>
 	</resultMap>
 
-	<select id="noticeSelect" resultMap="test" parameterType="java.lang.Integer">
-		select num as n, title as t, writer, contents, reg_date, hit from notice where num=#{num}
+	<resultMap type="NoticeDTO" id="notice">
+		<id property="num" column="num"/>
+		<result property="title" column="title"/>
+		<result property="writer" column="writer"/>
+		<result property="contents" column="contents"/>
+		<result property="reg_date" column="reg_date"/>
+		<result property="hit" column="hit"/>
+		<collection property="files" ofType="com.iu.file.FileDTO" javaType="java.util.ArrayList" resultMap="fileResult" />
+	</resultMap>
+	
+	<resultMap type="com.iu.file.FileDTO" id="fileResult">
+		<id property="fnum" column="fnum"/>
+			<result property="fname" column="fname"/>
+			<result property="oname" column="oname"/>
+	</resultMap>
+
+	<select id="noticeSelect" resultMap="notice" parameterType="Integer">
+		select n.*, f.* from notice n inner join files f on(n.num=f.num) where n.num=#{num}
 	</select>
 
 	<insert id="noticeWrite" parameterType="com.iu.board.BoardDTO">
@@ -72,11 +88,11 @@
 		insert into notice values(#{num},#{title},#{writer},#{contents},sysdate,0) 
 	</insert>
 	
-	<update id="noticeUpdate" parameterType="com.iu.board.notice.NoticeDTO">
+	<update id="noticeUpdate" parameterType="NoticeDTO">
 		update notice set title=#{title}, contents=#{contents} where num=#{num}
 	</update>
 	
-	<delete id="noticeDelete" parameterType="java.lang.Integer" >
+	<delete id="noticeDelete" parameterType="Integer" >
 		delete notice where num=#{num}
 	</delete>
 		

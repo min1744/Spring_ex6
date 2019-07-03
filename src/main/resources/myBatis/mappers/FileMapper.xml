@@ -4,8 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="FileMapper">
-	<insert id="setWrite" parameterType="com.iu.file.FileDTO">
-		insert into files values(notice_seq.nextval, #{num}, #{fname},#{oname})
+	<insert id="setWrite" parameterType="java.util.List">
+		<foreach collection="files" item="file">
+			insert into files values (notice_seq.nextval, #{file.num}, #{file.fname},#{file.oname})
+		</foreach>
 	</insert>
 	
 	<update id="setUpdate" parameterType="com.iu.file.FileDTO">

@@ -52,12 +52,10 @@ public class MemberController {
 	
 	@RequestMapping(value = "memberLogin", method = RequestMethod.POST)
 	public ModelAndView getSelect(MemberVO memberVO, HttpSession session, Model model) throws Exception{
-		HashMap<String, Object> map = memberService.getSelect(memberVO, session);
-		memberVO = (MemberVO)map.get("memberVO");
+		memberVO = memberService.getSelect(memberVO);
 		String message = "Login Fail";
 		if(memberVO != null) {
-			session.setAttribute("member", map.get("memberVO"));
-			session.setAttribute("memberfile", map.get("memberfileVO"));
+			session.setAttribute("member", memberVO);
 			message = "Login Success";
 		}
 		ModelAndView mv = new ModelAndView();

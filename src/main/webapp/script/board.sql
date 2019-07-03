@@ -51,3 +51,7 @@ nocache;
 
 select * from MEMBER;
 select * from MEMBERFILE;
+
+select m.id, m.name, f.fname from member m inner join memberfile f on(m.id=f.id) where m.id = 'tt' and m.pw = 'tt';
+select n.*, f.* from notice n inner join files f on (n.num=f.num) where n.num = 15;
+select * from notice;

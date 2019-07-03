@@ -40,13 +40,9 @@ public class MemberService {
 		return result;
 	}
 	
-	public HashMap<String, Object> getSelect(MemberVO memberVO, HttpSession session) throws Exception{
-		MemberfileVO memberfileVO = memberfileDAO.getSelect(memberVO.getId());
+	public MemberVO getSelect(MemberVO memberVO) throws Exception{
 		memberVO = memberDAO.getSelect(memberVO);
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("memberVO", memberVO);
-		map.put("memberfileVO", memberfileVO);
 		
-		return map;
+		return memberVO;
 	}
 }

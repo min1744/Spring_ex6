@@ -14,8 +14,8 @@ public class FileDAO {
 	private SqlSession sqlSession;
 	private static final String NAMESPACE = "FileMapper.";
 	
-	public int setWrite(FileDTO fileDTO) throws Exception{
-		return sqlSession.insert(NAMESPACE+"setWrite", fileDTO);
+	public int setWrite(List<FileDTO> files) throws Exception{
+		return sqlSession.insert(NAMESPACE+"setWrite", files);
 	}
 	
 	public int setUpdate(FileDTO fileDTO) throws Exception{

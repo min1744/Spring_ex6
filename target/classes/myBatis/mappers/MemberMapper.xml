@@ -8,7 +8,34 @@
 	<insert id="setWrite" parameterType="com.iu.member.MemberVO">
 		insert into member (<include refid="colums" />) values (#{id}, #{pw}, #{name}, #{email}, 3)
 	</insert>
-	<select id="getSelect" resultType="com.iu.member.MemberVO" parameterType="com.iu.member.MemberVO">
-		select <include refid="colums" /> from member where id=#{id} and pw=#{pw}
+	
+	<!-- <resultMap type="com.iu.member.MemberVO" id="member">
+		<id property="id" column="id"/>
+		<result property="pw" column="pw"/>
+		<result property="name" column="name"/>
+		<result property="email" column="email"/>
+		<result property="grade" column="grade"/>
+		<result property="memberfileVO.num" column="num"/>
+		<result property="memberfileVO.fname" column="fname"/>
+		<result property="memberfileVO.oname" column="oname"/>
+	</resultMap> -->
+	
+	<resultMap type="com.iu.member.MemberVO" id="member">
+		<id property="id" column="id"/>
+		<result property="pw" column="pw"/>
+		<result property="name" column="name"/>
+		<result property="email" column="email"/>
+		<result property="grade" column="grade"/>
+		<association property="memberfileVO" javaType="com.iu.memberfile.MemberfileVO" resultMap="fileResult" />
+	</resultMap>
+	
+	<resultMap type="com.iu.memberfile.MemberfileVO" id="fileResult">
+		<id property="num" column="num"/>
+		<result property="fname" column="fname"/>
+		<result property="oname" column="oname"/>
+	</resultMap>
+	
+	<select id="getSelect" resultMap="member" parameterType="com.iu.member.MemberVO">
+		select m.*, f.* from member m inner join memberfile f on(m.id=f.id) where m.id = #{id} and m.pw = #{pw}
 	</select>
 </mapper>

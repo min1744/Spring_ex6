@@ -43,9 +43,7 @@ public class NoticeService implements BoardService {
 			files.add(fileDTO);
 		}
 		
-		for(FileDTO fileDTO : files) {
-			fileDAO.setWrite(fileDTO);
-		}
+		fileDAO.setWrite(files);
 		
 		return result;
 	}

@@ -31,7 +31,7 @@ public class MemberDAOTest extends AbstractTest {
 		assertNotNull(memberVO);
 	}
 	
-	@Test
+	//@Test
 	public void testFile() throws Exception{
 		MemberfileVO memberfileVO = new MemberfileVO();
 		memberfileVO.setId("iu");
@@ -39,5 +39,15 @@ public class MemberDAOTest extends AbstractTest {
 		memberfileVO.setOname("oname");
 		int result = memberfileDAO.setWrite(memberfileVO);
 		assertEquals(1, result);
+	}
+	
+	@Test
+	public void loginTest() throws Exception{
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("tt");
+		memberVO.setPw("tt");
+		memberVO = memberDAO.getSelect(memberVO);
+		System.out.println(memberVO.getEmail());
+		System.out.println(memberVO.getMemberfileVO().getFname());
 	}
 }
