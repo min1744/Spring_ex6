@@ -25,14 +25,13 @@ public class NoticeDAO implements BoardDAO {
 	private SqlSession sqlSession;
 	private static final String NAMESPACE="NoticeMapper.";
 
-	public int getNum() throws Exception{
-		int num = sqlSession.selectOne(NAMESPACE+"getNum");
-		return num;
-	}
-	
 	@Override
 	public int setWrite(BoardDTO boardDTO) throws Exception {
+		//HashMap<String, Object> map = new HashMap<String, Object>();
+		//map.put("boardDTO", boardDTO);
+		//map.put("pnum", 0);
 		int result = sqlSession.insert(NAMESPACE+"noticeWrite", boardDTO);
+		System.out.println(boardDTO.getNum());
 		return result;
 	}
 

@@ -1,5 +1,7 @@
 package com.iu.s6;
 
+import java.util.HashMap;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -50,10 +52,12 @@ public class MemberController {
 	
 	@RequestMapping(value = "memberLogin", method = RequestMethod.POST)
 	public ModelAndView getSelect(MemberVO memberVO, HttpSession session, Model model) throws Exception{
-		memberVO = memberService.getSelect(memberVO);
+		HashMap<String, Object> map = memberService.getSelect(memberVO, session);
+		memberVO = (MemberVO)map.get("memberVO");
 		String message = "Login Fail";
 		if(memberVO != null) {
-			session.setAttribute("member", memberVO);
+			session.setAttribute("member", map.get("memberVO"));
+			session.setAttribute("memberfile", map.get("memberfileVO"));
 			message = "Login Success";
 		}
 		ModelAndView mv = new ModelAndView();
@@ -63,4 +67,7 @@ public class MemberController {
 		
 		return mv;
 	}
+	
+	@RequestMapping(value = "memberPage")
+	public void memberPage(HttpSession session) throws Exception{}
 }

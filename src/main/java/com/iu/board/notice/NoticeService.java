@@ -30,15 +30,14 @@ public class NoticeService implements BoardService {
 
 	@Override
 	public int setWrite(BoardDTO boardDTO, List<MultipartFile> multipartFiles, HttpSession session) throws Exception {
+		int result = noticeDAO.setWrite(boardDTO);
 		//파일을 HDD에 저장
-		int num = noticeDAO.getNum();
-		boardDTO.setNum(num);
 		ArrayList<FileDTO> files = new ArrayList<FileDTO>();
 		String realPath = session.getServletContext().getRealPath("/resources/upload");
 		for(MultipartFile multipartFile:multipartFiles) {
 			String fileSystemName = fileSaver.saveFile(realPath, multipartFile);
 			FileDTO fileDTO = new FileDTO();
-			fileDTO.setNum(num);
+			fileDTO.setNum(boardDTO.getNum());
 			fileDTO.setFname(fileSystemName);
 			fileDTO.setOname(multipartFile.getOriginalFilename());
 			files.add(fileDTO);
@@ -48,7 +47,7 @@ public class NoticeService implements BoardService {
 			fileDAO.setWrite(fileDTO);
 		}
 		
-		return noticeDAO.setWrite(boardDTO);
+		return result;
 	}
 
 	@Override

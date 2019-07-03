@@ -17,12 +17,6 @@ public class NoticeDAOImplTest extends AbstractTest {
 	@Inject
 	private NoticeDAO noticeDAO;
 	
-	@Test
-	public void getNum() throws Exception{
-		int result = noticeDAO.getNum();
-		assertNotEquals(0, result);
-	}
-	
 	//@Test
 	public void getCount() throws Exception{
 		PageMaker pageMaker = new PageMaker();
@@ -63,7 +57,7 @@ public class NoticeDAOImplTest extends AbstractTest {
 		assertEquals(0, result);
 	}
 	
-	//@Test
+	@Test
 	public void test() throws Exception {
 		NoticeDTO noticeDTO = new NoticeDTO();
 		noticeDTO.setWriter("mmm");

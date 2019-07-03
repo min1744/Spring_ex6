@@ -11,6 +11,7 @@
 <a href="./notice/noticeList" class="btn">Notice List</a>
 <c:choose>
 	<c:when test="${not empty member}">
+		<a href="./member/memberPage">MyPage</a>
 		<a href="./member/memberLogout">Logout</a>
 	</c:when>
 	<c:otherwise>

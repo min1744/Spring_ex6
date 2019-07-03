@@ -1,5 +1,7 @@
 package com.iu.member;
 
+import java.util.HashMap;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -38,9 +40,13 @@ public class MemberService {
 		return result;
 	}
 	
-	public MemberVO getSelect(MemberVO memberVO) throws Exception{
+	public HashMap<String, Object> getSelect(MemberVO memberVO, HttpSession session) throws Exception{
+		MemberfileVO memberfileVO = memberfileDAO.getSelect(memberVO.getId());
 		memberVO = memberDAO.getSelect(memberVO);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberVO", memberVO);
+		map.put("memberfileVO", memberfileVO);
 		
-		return memberVO;
+		return map;
 	}
 }

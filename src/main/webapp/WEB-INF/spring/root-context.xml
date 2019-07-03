@@ -27,11 +27,9 @@
 		<property name="driverClassName"
 			value="oracle.jdbc.driver.OracleDriver" />
 	</bean>
-	<bean class="org.mybatis.spring.SqlSessionFactoryBean"
-		id="sqlSessionFactoryBean">
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="mapperLocations"
-			value="classpath:/myBatis/mappers/**/*Mapper.xml" />
+		<property name="mapperLocations" value="classpath:/myBatis/mappers/**/*Mapper.xml" />
 	</bean>
 	<bean class="org.mybatis.spring.SqlSessionTemplate"
 		id="sqlSession">
