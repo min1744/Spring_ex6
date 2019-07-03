@@ -13,7 +13,7 @@ public class FileSaver {
 	public String saveFile(String realPath, MultipartFile multipartFile) throws Exception{
 		File file = new File(realPath);
 		if(!file.exists()) {
-			file.mkdirs();//s가 뒤에 붙은 것은 resources도 없을 때 만들어 줌
+			file.mkdirs();//s가 뒤에 붙은 것은 resources도 만들어 줌
 		}
 		//a. 저장할 파일명을 생성
 		//UUID 클래스를 사용(Universal Unique ID)

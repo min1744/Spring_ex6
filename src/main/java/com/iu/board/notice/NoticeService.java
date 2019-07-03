@@ -50,19 +50,16 @@ public class NoticeService implements BoardService {
 
 	@Override
 	public int setDelete(int num) throws Exception {
-		// TODO Auto-generated method stub
 		return noticeDAO.setDelete(num);
 	}
 
 	@Override
 	public int setUpdate(BoardDTO boardDTO) throws Exception {
-		// TODO Auto-generated method stub
 		return noticeDAO.setUpdate(boardDTO);
 	}
 
 	@Override
 	public BoardDTO getSelect(int num) throws Exception {
-		// TODO Auto-generated method stub
 		return noticeDAO.getSelect(num);
 	}
 

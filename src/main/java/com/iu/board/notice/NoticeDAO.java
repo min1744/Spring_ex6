@@ -1,7 +1,5 @@
 package com.iu.board.notice;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,8 +7,6 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Required;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Repository;
 
 import com.iu.board.BoardDAO;
@@ -30,14 +26,11 @@ public class NoticeDAO implements BoardDAO {
 		//HashMap<String, Object> map = new HashMap<String, Object>();
 		//map.put("boardDTO", boardDTO);
 		//map.put("pnum", 0);
-		int result = sqlSession.insert(NAMESPACE+"noticeWrite", boardDTO);
-		System.out.println(boardDTO.getNum());
-		return result;
+		return sqlSession.insert(NAMESPACE+"noticeWrite", boardDTO);
 	}
 
 	@Override
 	public int setDelete(int num) throws Exception {
-		// TODO Auto-generated method stub
 		return sqlSession.delete(NAMESPACE+"noticeDelete", num);
 	}
 
@@ -53,13 +46,11 @@ public class NoticeDAO implements BoardDAO {
 
 	@Override
 	public List<BoardDTO> getList(PageMaker pageMaker) throws Exception {
-		
 		return sqlSession.selectList(NAMESPACE+"noticeList", pageMaker);
 	}
 
 	@Override
 	public int getTotalCount(PageMaker pageMaker) throws Exception {
-		
 		return sqlSession.selectOne(NAMESPACE+"totalCount", pageMaker);
 	}
 }

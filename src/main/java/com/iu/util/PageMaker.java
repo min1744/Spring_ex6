@@ -35,9 +35,6 @@ public class PageMaker {
 		return lastRow;
 	}
 	public Integer getCurPage() {
-		if(curPage == null) {
-			this.curPage = 1;
-		}
 		return curPage;
 	}
 	public void setCurPage(Integer curPage) {
@@ -47,9 +44,6 @@ public class PageMaker {
 		}
 	}
 	public String getKind() {
-		if(this.search == null) {
-			this.search = "";
-		}
 		return kind;
 	}
 	public void setKind(String kind) {
@@ -60,6 +54,9 @@ public class PageMaker {
 	}
 	public void setSearch(String search) {
 		this.search = search;
+		if(search == null) {
+			this.search = "";
+		}
 	}
 	
 	//startRow, LastRow
