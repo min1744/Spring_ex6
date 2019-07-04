@@ -5,9 +5,16 @@
 
 <mapper namespace="FileMapper">
 	<insert id="setWrite" parameterType="java.util.List">
-		<foreach collection="files" item="file">
-			insert into files values (notice_seq.nextval, #{file.num}, #{file.fname},#{file.oname})
+		<selectKey keyProperty="id" resultType="java.lang.Integer" order="BEFORE">
+			select notice_seq.nextval as id from dual
+		</selectKey>
+		<!-- 변수명과 상관없이 collection 속성 값은 list로 -->
+		<!-- map으로 보낼 시 collection 속성 값은 map의 key값으로 -->
+		insert All
+		<foreach collection="list" item="item" separator=" " index="i">
+			into files values (notice_seq.nextval+#{i}, #{item.num}, #{item.fname},#{item.oname})
 		</foreach>
+		select * from dual
 	</insert>
 	
 	<update id="setUpdate" parameterType="com.iu.file.FileDTO">

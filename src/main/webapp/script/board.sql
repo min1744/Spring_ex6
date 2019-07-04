@@ -49,6 +49,13 @@ nomaxvalue
 nocycle
 nocache;
 
+create sequence files_seq
+start with 1
+increment by 1
+nomaxvalue
+nocycle
+nocache;
+
 select * from MEMBER;
 select * from MEMBERFILE;
 
